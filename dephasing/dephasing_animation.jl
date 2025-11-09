@@ -13,6 +13,7 @@ b = SpinBasis(1//2)
 # Initial state |+> = (|0> + |1>)/√2
 # ----------------------
 ψ0 = normalize(spinup(b) + spindown(b))
+# ψ0 = normalize(spinup(b))
 ρ0 = ψ0 ⊗ dagger(ψ0)
 
 # ----------------------
