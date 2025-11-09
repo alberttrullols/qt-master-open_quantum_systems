@@ -1,0 +1,18 @@
+# Julia Package Requirements for Open Quantum Systems Project
+# Install these packages in Julia using: Pkg.add(["QuantumOptics", "Plots"])
+
+# Core simulation framework
+QuantumOptics.jl>=1.2.4
+
+# Plotting and visualization  
+Plots.jl>=1.41.0
+
+# Note: Additional dependencies will be automatically installed by Julia's package manager:
+# - LinearAlgebra (built-in)
+# - SparseArrays (built-in) 
+# - Random (built-in)
+# - FFTW.jl
+# - DifferentialEquations.jl ecosystem
+# - Arpack.jl
+# - FastExpm.jl
+# - And other dependencies as specified in Manifest.toml
