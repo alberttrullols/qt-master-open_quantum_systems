@@ -80,7 +80,9 @@
 <body>
     <div class="content">
         <h2>Exercise 1: Dephasing and Relaxation Dynamics</h2>
-        <p>Below are animated visualizations showing the evolution of quantum states. We solve the master equation:</p>
+        
+        <h3>Dephasing Dynamics</h3>
+        <p>Below are animated visualizations showing the dephasing of quantum states. We solve the master equation:</p>
         <p>$$\frac{d\rho}{dt} = -\frac{i}{\hbar}[H,\rho] + \frac{\Gamma}{2}(\sigma_z\rho\sigma_z - \rho)$$</p>
         <p>with Hamiltonian $H = \frac{\hbar\omega}{2}\sigma_z$</p>
         
@@ -97,6 +99,27 @@
                 <img src="dephasing/results/superposition_to_max_mixed.gif" alt="Superposition evolving to maximally mixed state">
                 <p>Bloch vector evolution under dephasing. Initial state is $|+\rangle$. It can be seen how the vector curls into the center of the sphere, from a symmetric superposition to a maximally mixed state.<br>
                 Parameters: $\omega = 1.0$, $\Gamma = 0.2$</p>
+            </div>
+        </div>
+
+        <h3>Relaxation Dynamics</h3>
+        <p>Below are animated visualizations showing the relaxation of quantum states. We solve the master equation:</p>
+        <p>$$\frac{d\rho}{dt} = -\frac{i}{\hbar}[H,\rho] + \frac{\Gamma}{2}(2\sigma_-\rho\sigma_+ - \sigma_+\sigma_-\rho - \rho\sigma_+\sigma_-)$$</p>
+        <p>with Hamiltonian $H = \frac{\hbar\omega}{2}\sigma_z$, where $\sigma_+ = |1\rangle\langle 0|$ and $\sigma_- = |0\rangle\langle 1|$</p>
+        
+        <div class="gif-container">
+            <div class="gif-item">
+                <h3>Relaxation of Excited State</h3>
+                <img src="relaxation/results/excited.gif" alt="Excited state evolution under relaxation">
+                <p>Bloch vector evolution under relaxation. Initial state is $|1\rangle$ (excited state). The state decays to the ground state $|0\rangle$ through spontaneous emission.<br>
+                Parameters: $\omega = 1.0$, $\Gamma = 0.5$</p>
+            </div>
+            
+            <div class="gif-item">
+                <h3>Relaxation of Coherent Superposition</h3>
+                <img src="relaxation/results/superp.gif" alt="Superposition evolving under relaxation">
+                <p>Bloch vector evolution under relaxation. Initial state is $|+\rangle$. The state evolves towards the ground state while losing coherence.<br>
+                Parameters: $\omega = 1.0$, $\Gamma = 0.5$</p>
             </div>
         </div>
     </div>

@@ -8,7 +8,7 @@ b = SpinBasis(1//2)
 
 
 ψ0 = normalize(spinup(b) + spindown(b))
-# ψ0 = normalize(spinup(b))
+ψ0 = normalize(spinup(b))
 
 ρ0 = ψ0 ⊗ dagger(ψ0)
 
@@ -34,11 +34,11 @@ Y = [sin(th)*sin(ph) for th in θ, ph in φ]
 Z = [cos(th) for th in θ, ph in φ]
 
 anim = @animate for i in 1:length(tout)
-    plot(surface(X, Y, Z, alpha=0.1, color=:lightblue), legend=false)
+    plot(surface(X, Y, Z, alpha=0.1, color=:lightblue), legend=false, colorbar = false)
     scatter!([0.0], [0.0], [0.0], color=:black, label=false) # origin
     quiver!([0.0], [0.0], [0.0], quiver=([x[i]], [y[i]], [z[i]]),
             arrowsize=0.15, linewidth=2, color=:red)
-    title!("Bloch vector evolution under dephasing t = $(round(tout[i], digits=2))")
+    title!("Bloch vector evolution under dephasing\n t = $(round(tout[i], digits=2))")
     xlims!(-1,1); ylims!(-1,1); zlims!(-1,1)
 end
 
