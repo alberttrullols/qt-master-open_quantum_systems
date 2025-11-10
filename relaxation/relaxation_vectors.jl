@@ -4,34 +4,34 @@ using Plots
 # ----------------------
 # Define qubit and operators
 # ----------------------
-b = SpinBasis(1//2)          # spin-1/2
+b = SpinBasis(1//2)
 σx = sigmax(b)
 σy = sigmay(b)
 σz = sigmaz(b)
+σm = sigmam(b)    # lowering operator |0><1|
 
 # ----------------------
-# Define initial state
+# Initial state |+> = (|0> + |1>)/√2
 # ----------------------
-ψ0 = spinup(b) + spindown(b)
-# ψ0 = spinup(b)
-ψ0 = normalize(ψ0)
-ρ0 = ψ0 ⊗ dagger(ψ0) 
+ψ0 = normalize(spinup(b) + spindown(b))
+# ψ0 = normalize(spinup(b))
+ρ0 = ψ0 ⊗ dagger(ψ0)
 
 # ----------------------
-# Hamiltonian and collapse operator (dephasing)
+# Hamiltonian and collapse operator (relaxation)
 # ----------------------
 H = 1.0 * σz
-γ = 0.2                        # dephasing rate
-c_ops = [sqrt(γ) * σz]         # pure dephasing along z
+Γ = 0.2                       # relaxation rate
+c_ops = [sqrt(Γ) * σm]        # amplitude damping
 
 # ----------------------
 # Time evolution
 # ----------------------
-tlist = 0:0.1:20
+tlist = 0:0.1:75
 tout, ρt = timeevolution.master(tlist, ρ0, H, c_ops)
 
 # ----------------------
-# Extract Bloch components
+# Expectation values
 # ----------------------
 x = [real(expect(σx, ρ)) for ρ in ρt]
 y = [real(expect(σy, ρ)) for ρ in ρt]
@@ -45,7 +45,6 @@ plot!(tout, y, label="⟨σy⟩", lw=2)
 plot!(tout, z, label="⟨σz⟩", lw=2)
 xlabel!("Time")
 ylabel!("Expectation values")
-title!("Bloch vector evolution under dephasing")
+title!("Bloch vector evolution under relaxation (amplitude damping)")
 
-# save plot
-savefig("bloch_components.png")
+savefig("bloch_relaxation_components.png")

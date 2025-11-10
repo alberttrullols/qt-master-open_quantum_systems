@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercise 1: Dephasing and Relaxation Dynamics</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f8f9fa;
+        }
+        
+        .content {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .gif-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+        
+        .gif-item {
+            text-align: center;
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #e9ecef;
+        }
+        
+        .gif-item h3 {
+            color: #495057;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+        
+        .gif-item img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        }
+        
+        .gif-item p {
+            margin-top: 15px;
+            color: #6c757d;
+            font-style: italic;
+        }
+        
+        @media (max-width: 768px) {
+            .gif-container {
+                grid-template-columns: 1fr;
+            }
+            
+            body {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <h2>Exercise 1: Dephasing and Relaxation Dynamics</h2>
+        <p>Below are animated visualizations showing the evolution of quantum states. We solve the master equation:</p>
+        <p>$$\frac{d\rho}{dt} = -\frac{i}{\hbar}[H,\rho] + \frac{\Gamma}{2}(\sigma_z\rho\sigma_z - \rho)$$</p>
+        <p>with Hamiltonian $H = \frac{\hbar\omega}{2}\sigma_z$</p>
+        
+        <div class="gif-container">
+            <div class="gif-item">
+                <h3>Eigenstate of $\sigma_z$ Evolution</h3>
+                <img src="dephasing/results/spin_up.gif" alt="Spin-up state evolution under dephasing">
+                <p>Bloch vector evolution under dephasing. Initial state is $|1\rangle$. The spin-up state does not change in time since it is an eigenstate of $\sigma_z$.<br>
+                Parameters: $\omega = 1.0$, $\Gamma = 0.2$</p>
+            </div>
+            
+            <div class="gif-item">
+                <h3>Coherent Superposition Evolution</h3>
+                <img src="dephasing/results/superposition_to_max_mixed.gif" alt="Superposition evolving to maximally mixed state">
+                <p>Bloch vector evolution under dephasing. Initial state is $|+\rangle$. It can be seen how the vector curls into the center of the sphere, from a symmetric superposition to a maximally mixed state.<br>
+                Parameters: $\omega = 1.0$, $\Gamma = 0.2$</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
