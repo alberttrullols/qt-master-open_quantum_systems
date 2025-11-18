@@ -176,6 +176,27 @@ def ensemble(N, positions, gamma0=1.0, k0=2*np.pi, tmax=4.0, ntraj=200):
 
     return tgrid, Iavg / ntraj
 
+def plot_superradiance(N, a_near, a_far, ntraj=100):
+    # Setup positions and calculate
+    positions_near = np.array([[i*a_near, 0, 0] for i in range(N)], dtype=float)
+    positions_far = np.array([[i*a_far, 0, 0] for i in range(N)], dtype=float)
+    
+    t_close, I_close = ensemble(N, positions_near, tmax=6.0, ntraj=ntraj)
+    t_far, I_far = ensemble(N, positions_far, tmax=6.0, ntraj=ntraj)
+    
+    # Plot
+    plt.figure(figsize=(10, 6))
+    plt.plot(t_close, I_close, 'b-', label=f'Close ({a_near} λ)')
+    plt.plot(t_far, I_far, 'r-', label=f'Far ({a_far} λ)')
+    plt.xlabel('Time (1/γ₀)')
+    plt.ylabel('Intensity')
+    plt.title(f'Superradiance: N={N}')
+    plt.legend()
+    plt.grid(True, alpha=0.3)
+    plt.show()
+    
+    return t_close, I_close, t_far, I_far
+
 # ----------------------------------------------------------
 # Animation function for progressive plotting
 # ----------------------------------------------------------
@@ -266,9 +287,9 @@ def animate_superradiance(N, a_near, a_far, ntraj=100):
 
 if __name__ == "__main__":
     # Run full animation
-    N = 4
+    N = 8
     a_near = 0.0075   # Very close -> strong superradiance
     a_far = 4.5     # Far apart -> independent emission
-    ntraj = 1500
+    ntraj =150
 
     animate_superradiance(N, a_near, a_far, ntraj=ntraj)
