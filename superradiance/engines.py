@@ -146,32 +146,6 @@ def trajectory_optimized(N, positions, gamma0=1.0, k0=2*np.pi, tmax=4.0, seed=No
 def ensemble(N, positions, gamma0=1.0, k0=2*np.pi, tmax=4.0, ntraj=200, engine='optimized', progress=True):
     """
     Run ensemble of trajectories
-    
-    Parameters:
-    -----------
-    N : int
-        Number of atoms
-    positions : array_like
-        Atomic positions
-    gamma0 : float
-        Single-atom decay rate
-    k0 : float
-        Wave number
-    tmax : float
-        Maximum simulation time
-    ntraj : int
-        Number of trajectories
-    engine : str
-        Simulation engine ('original' or 'optimized')
-    progress : bool
-        Show progress bar
-    
-    Returns:
-    --------
-    tgrid : ndarray
-        Time grid
-    I_avg : ndarray
-        Average intensity
     """
     # Choose trajectory function
     if engine == 'original':
