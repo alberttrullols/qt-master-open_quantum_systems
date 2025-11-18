@@ -27,10 +27,10 @@ def example_2_custom_parameters():
     
     # Custom simulation with specific parameters
     results = simulate_superradiance(
-        N=7,                    # 7 atoms
+        N=6,                    # 6 atoms
         a_near=0.0075,         # Very close spacing
         a_far=4.5,             # Far spacing
-        ntraj=100,             # 100 trajectories
+        ntraj=300,             # 300 trajectories
         tmax=6.0,              # 6 time units
         engine='optimized',    # Use optimized engine
         animate=True,         # Animated plot
