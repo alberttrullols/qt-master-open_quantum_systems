@@ -75,6 +75,7 @@ def simulate_superradiance(N, a_near=0.01, a_far=1.0, ntraj=100, tmax=6.0,
     enhancement = max_I_close / max_I_far if max_I_far > 0 else float('inf')
     
     print(f"Max intensity (close): {max_I_close:.4f}")
+    print(f'Max intensity happens at time: {t_close[np.argmax(I_close)]:.4f} (close)')
     print(f"Max intensity (far): {max_I_far:.4f}")
     print(f"Enhancement factor: {enhancement:.2f}")
     

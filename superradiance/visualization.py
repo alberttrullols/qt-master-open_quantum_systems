@@ -40,6 +40,8 @@ def plot_static(t_data, I_data, labels=None, title="Superradiance",
         color = colors[i % len(colors)]
         plt.plot(t, I, color=color, linewidth=2.5, label=label)
     
+    plt.xlim(0,max([np.max(t) for t in t_data])*1)
+    plt.ylim(0, max([np.max(I) for I in I_data])*1.1)
     plt.xlabel("Time t (in units of 1/γ₀)", fontsize=12)
     plt.ylabel("Intensity I(t)", fontsize=12)
     plt.title(title, fontsize=14)
