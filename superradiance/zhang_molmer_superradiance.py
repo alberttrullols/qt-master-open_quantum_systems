@@ -198,13 +198,13 @@ def ensemble_zm(N_atoms, positions, gamma0=1.0, k0=2*np.pi, n_modes=1,
 # -------------------------
 if __name__ == "__main__":
     # Parameters
-    N = 5
+    N = 10
     a = 0.0075    # spacing in units of lambda; small -> collective
     a_far = 4.5 # spacing larger -> weaker collectivity
-    gamma0 = .04
+    gamma0 = .01
     k0 = 2 * np.pi  # lambda = 1
     tmax = 6.0
-    ntraj = 3000
+    ntraj = 200
 
     print(f"Zhang-Mølmer Superradiance Simulation")
     print(f"N_atoms = {N}, tmax = {tmax}, ntraj = {ntraj}")
