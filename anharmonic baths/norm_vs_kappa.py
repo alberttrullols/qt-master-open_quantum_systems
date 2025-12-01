@@ -2,6 +2,8 @@
 import numpy as np
 from scipy.linalg import expm
 import matplotlib.pyplot as plt
+
+# latex stuff
 plt.rc('text', usetex=True)
 plt.rc('font', family='serif')
 
@@ -38,37 +40,40 @@ Hint = g * np.kron(sx, ad + a)
 H = np.kron(Ha, Idv) + np.kron(Ida, Hv) + Hint
 Id = np.kron(Ida, Idv)
 
-# Bath initially in ground state
+# oscillator initially in ground state
 rhov0 = np.zeros((nmax, nmax))
 rhov0[0, 0] = 1 
 
-# Initial total density matrix: system in ground state, bath in rhov0
+# Expanders and Tracers for reduced dynamics
 Expander = np.kron(np.eye(4), rhov0.flatten()).T
-
-# Partial trace over bath
 Tracer = np.kron(np.eye(4), Idv.flatten())
 
 # Sweep over kappa values
-kappa_list = np.linspace(0, 100, 3)
+min_kappa = 0.0
+max_kappa = 10.0 * g # set it even bigger to oberve how it goes to zero
+kappa_list = np.linspace(min_kappa, max_kappa, 1000)
 norm_T2_list = []
+
+def liouvillian(kappa):
+    return (1j * (np.kron(H, Id) - np.kron(Id, H.T)) +
+            kappa * (nbar + 1) * (2 * np.kron(np.kron(Ida, a), np.kron(Ida, ad).T)
+                                   - np.kron(np.kron(Ida, ad @ a), Id)
+                                   - np.kron(Id, np.kron(Ida, ad @ a))) +
+            kappa * nbar * (2 * np.kron(np.kron(Ida, ad), np.kron(Ida, a).T)
+                            - np.kron(np.kron(Ida, a @ ad), Id)
+                            - np.kron(Id, np.kron(Ida, a @ ad))))
 
 for kappa in kappa_list:
     print(f"Calculating for kappa = {kappa:.2f}")
+
+    # compute Liouvillian superoperator for current kappa
+    L = liouvillian(kappa)
     
-    # Liouvillian superoperator
-    L = (1j * (np.kron(H, Id) - np.kron(Id, H.T)) +
-         kappa * (nbar + 1) * (2*np.kron(np.kron(Ida, a), np.kron(Ida, ad).T)
-         - np.kron(np.kron(Ida, ad@a), Id)
-         - np.kron(Id, np.kron(Ida, ad@a))) +
-         kappa * nbar * (2*np.kron(np.kron(Ida, ad), np.kron(Ida, a).T)
-         - np.kron(np.kron(Ida, a@ad), Id)
-         - np.kron(Id, np.kron(Ida, a@ad))))
-
-    # Dynamical maps
+    # Full system dynamical maps
     EL = expm(L * dt)
-    EL2 = EL @ EL
+    EL2 = expm(L * 2 * dt)
 
-    # Reduced maps
+    # Reduced dynamical maps
     E1 = Tracer @ EL @ Expander
     E2 = Tracer @ EL2 @ Expander
 
@@ -77,18 +82,21 @@ for kappa in kappa_list:
 
     norm_T2_list.append(np.linalg.norm(T2, 2)) 
 
+
+# Remove the first two points from both lists (numerical artifact at kappa~0)
+kappa_list = kappa_list[2:]
+norm_T2_list = norm_T2_list[2:]
+
 # Plot results
 plt.figure()
-plt.plot(kappa_list/g, norm_T2_list, label='Spectral Norm') 
-# plt.legend()
+plt.plot(kappa_list/g, norm_T2_list)
 plt.tick_params(labelsize=12)
 plt.rc('text', usetex=True)
 plt.rc('font', family='serif')
-plt.xlabel(r"$\kappa/g$")
-plt.ylabel(r"||T₂||")
-plt.title(r"Transfer Tensor Norm vs $\kappa$")
+plt.xlabel(r"$\kappa/g$", fontsize=16)
+plt.ylabel(r"$||T_2||$", fontsize=16)
+plt.tight_layout()
 plt.grid(True)
 plt.savefig("transfer_tensor_norm.png")
 plt.show()
 
-print("Done! Plot saved as transfer_tensor_norm.png")
